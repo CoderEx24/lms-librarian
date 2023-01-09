@@ -27,13 +27,23 @@
 						Button:
 							size_hint: 0.2, 1
 							text: 'Return Book'
+							on_press: root.return_book()
 						
 						Button:
 							size_hint: 0.2, 1
 							text: 'Refresh'
 							on_press: root.refresh()
+					Label:
+						text: ''
+						id: err_msg
+						size_hint_y: 0.1
+
+					Label:
+						text: 'id | borrower | checker | book title | date of borrowing | date of retrival'
+						size_hint_y: 0.1
+
 					BoxLayout:
-						size_hint: 1, 0.9
+						size_hint: 1, 0.7
 						RecycleView:
 							viewclass: 'Label'
 							id: borrow_records
