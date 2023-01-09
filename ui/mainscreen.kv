@@ -1,0 +1,52 @@
+#: import Window kivy.core.window.Window
+
+<MainScreen>:
+	Screen:
+		TabbedPanel:
+			do_default_tab: False
+			size_hint: 1, 1
+		
+			TabbedPanelItem:
+				text: 'Borrowings'
+
+				BoxLayout:
+					orientation: 'vertical'
+
+					BoxLayout:
+						orientation: 'horizontal'
+						size_hint: 1, 0.1
+
+						Label:
+							size_hint: 0.1, 1
+							text: 'Record ID:'
+						TextInput:
+							size_hint: 0.6, 1
+							multiline: False
+							on_text: root.record_id = self.text
+
+						Button:
+							size_hint: 0.2, 1
+							text: 'Return Book'
+						
+						Button:
+							size_hint: 0.2, 1
+							text: 'Refresh'
+							on_press: root.refresh()
+					BoxLayout:
+						size_hint: 1, 0.9
+						RecycleView:
+							viewclass: 'Label'
+							id: borrow_records
+							RecycleBoxLayout:
+								default_size: None, dp(56)
+								default_size_hint: 1, None
+								size_hint_y: None
+								height:	self.minimum_height 
+								orientation: 'vertical'
+
+			TabbedPanelItem:
+				text: 'Books'
+
+			TabbedPanelItem:
+				text: 'Users'
+				
