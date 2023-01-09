@@ -60,3 +60,28 @@
 			TabbedPanelItem:
 				text: 'Users'
 				
+				BoxLayout:
+					orientation: 'vertical'
+					BoxLayout:
+						pos_hint: {'top_y': 0}
+						size_hint: 1, 0.1
+						orientation: 'horizontal'
+						Button:
+							text: 'refresh'
+							on_press: root.init_user_info()
+							size_hint: 0.2, 0.1
+					Label:
+						text: 'id | Username | allowed to borrow'
+						size_hint: 1, 0.1
+
+					RecycleView:
+						size_hint: 1, 0.2
+						viewclass: 'Label'
+						id: customers_records
+						RecycleBoxLayout:
+							default_size: None, dp(56)
+							default_size_hint: 1, None
+							size_hint_y: None
+							height:	self.minimum_height 
+							orientation: 'vertical'
+

@@ -21,7 +21,6 @@ class MainScreen(Screen):
         
         records_list = self.ids['borrow_records']
         records_list.data.clear()
-        records_list.refresh_from_data()
 
         for record in parsed_data:
             borrow_id = record['id']
@@ -32,6 +31,8 @@ class MainScreen(Screen):
             date_of_retrival = record['date_of_retrival']
 
             records_list.data.append({ 'text': f'{borrow_id} | {borrower} | {checker} | {book_title} | {date_of_borrowing} | {date_of_retrival}' })
+        
+        records_list.refresh_from_data()
             
     def return_book(self):
         token = App.get_running_app().token
@@ -42,5 +43,26 @@ class MainScreen(Screen):
 
         if res.status_code != 200:
             self.ids['err_msg'].text = res.text
+
+    def init_user_info(self):
+        token = App.get_running_app().token
+        headers = {'Authorization': f'Token {token}'}
+
+        res = requests.get('http://127.0.0.1:8000/api/customer/', headers=headers)
+
+        parsed_data = json.loads(res.text)
+        user_records = self.ids['customers_records']
+
+        user_records.data.clear()
+
+        for record in parsed_data:
+            user_id = record['user']['id']
+            username = record['user']['username']
+            allowed_to_borrow = record['allowed_to_borrow']
+
+            user_records.data.append({ 'text': f'{user_id} | {username} | {allowed_to_borrow}' })
+
+        user_records.refresh_from_data()
+            
 
 
