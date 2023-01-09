@@ -19,8 +19,9 @@ class LoginScreen(Screen):
         response = requests.post('http://127.0.0.1:8000/api/librarian/login/', data)
 
         if response.status_code != 200:
-            err_content = Label(text=f'An error occured\n{response.content}', size=(100, 100))
-            err_msg = Popup(title='Error', content=err_content, auto_dismiss=True)
-            err_msg.open()
+            self.ids['err_msgs'].text = response.text
+            return False
 
+        App.get_running_app().token = response.text[7:-1]
+        return True
 

@@ -1,34 +1,41 @@
 <LoginScreen>:
-	BoxLayout:
-		orientation: 'vertical'
-		
-		Label:
-			text: 'Login'	
-		
+	Screen:
 		BoxLayout:
-			orientation: 'horizontal'
+			orientation: 'vertical'
 			
 			Label:
-				text: 'Username'
-				size_hint: 0.4, 1
-			
-			TextInput:
-				multiline: False
-				on_text: root.username = self.text
+				text: 'Login'	
 		
-		BoxLayout:
-			orientation: 'horizontal'
-
 			Label:
-				text: 'Password'
-				size_hint: 0.4, 1
+				text: ''
+				text_size: 300, 100
+				id: err_msgs
+		
+			BoxLayout:
+				orientation: 'horizontal'
 			
-			TextInput:
-				multiline: False
-				password: True
-				on_text: root.password = self.text
+				Label:
+					text: 'Username'
+					size_hint: 0.4, 1
+			
+				TextInput:
+					multiline: False
+					on_text: root.username = self.text
+		
+			BoxLayout:
+				orientation: 'horizontal'
 
-		Button:
-			text: 'login'
-			on_press: root.login()
+				Label:
+					text: 'Password'
+					size_hint: 0.4, 1
+			
+				TextInput:
+					multiline: False
+					password: True
+					on_text: root.password = self.text
+
+			Button:
+				text: 'login'
+				on_press: 
+					if root.login(): root.manager.transition.direction = 'right'; root.manager.current = 'main'
 			
