@@ -1,4 +1,55 @@
 #: import Window kivy.core.window.Window
+#: import Factory kivy.factory.Factory
+
+<BorrowBook>:
+	title: 'Record a Book Borrowing'
+	auto_dismiss: False
+	BoxLayout:
+		orientation: 'vertical'
+
+		Label:
+			id: err_msg
+			text: ''
+		
+		BoxLayout:
+			orientation: 'horizontal'
+			Label:
+				text: 'Borrower Username:'
+			TextInput:
+				multiline: False
+				on_text: root.borrower_username = self.text
+		BoxLayout:
+			orientation: 'horizontal'
+			Label:
+				text: 'Checker Username:'
+			TextInput:
+				multiline: False
+				on_text: root.checker_username = self.text
+
+		BoxLayout:
+			orientation: 'horizontal'
+			Label:
+				text: 'Book id:'
+			TextInput:
+				multiline: False
+				on_text: root.book_id = self.text
+
+		BoxLayout:
+			orientation: 'horizontal'
+			Label:
+				text: 'Date of Retrival:'
+			TextInput:
+				multiline: False
+				on_text: root.date_of_retrival = self.text
+		
+		BoxLayout:
+			orientation: 'horizontal'
+			Button:
+				text: 'add book'
+				on_press: root.borrow_book()
+			Button:
+				text: 'cancel'
+				on_press: root.dismiss()
 
 <MainScreen>:
 	Screen:
@@ -33,6 +84,11 @@
 							size_hint: 0.2, 1
 							text: 'Refresh'
 							on_press: root.refresh()
+						
+						Button:
+							size_hint: 0.2, 1
+							text: 'Borrow Book'
+							on_press: Factory.BorrowBook().open()
 					Label:
 						text: ''
 						id: err_msg

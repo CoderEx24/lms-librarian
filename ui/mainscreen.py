@@ -1,5 +1,6 @@
 from kivy.uix.screenmanager import Screen
-from kivy.properties import NumericProperty
+from kivy.properties import NumericProperty, StringProperty
+from kivy.uix.popup import Popup
 from kivy.lang import Builder
 from kivy.app import App
 from os import path
@@ -7,6 +8,29 @@ import requests
 import json
 
 Builder.load_file(path.join(path.dirname(__file__), 'mainscreen.kv'))
+
+class BorrowBook(Popup):
+    borrower_username = StringProperty()
+    checker_username = StringProperty()
+    date_of_retrival = StringProperty()
+    book_id = NumericProperty()
+
+    def borrow_book(self):
+        token = App.get_running_app().token
+        headers = {'Authorization': f'Token {token}'}
+        data = {'borrower': self.borrower_username, 
+                'checker_username': self.checker_username,
+                'date_of_retrival': self.date_of_retrival}
+
+        res = requests.post(f'http://127.0.0.1:8000/api/books/{int(self.book_id)}/borrow/',
+                           headers=headers, data=data)
+
+        if res.status_code != 200:
+            self.ids['err_msg'].text = res.text
+            return
+
+        self.dismiss()
+
 
 class MainScreen(Screen):
     
@@ -64,5 +88,3 @@ class MainScreen(Screen):
 
         user_records.refresh_from_data()
             
-
-
