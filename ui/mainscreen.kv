@@ -51,6 +51,12 @@
 				text: 'cancel'
 				on_press: root.dismiss()
 
+#<AddBook>:
+#	title: 'Add book'
+#	auto_dismiss: False
+
+	
+
 <MainScreen>:
 	Screen:
 		TabbedPanel:
@@ -112,6 +118,15 @@
 
 			TabbedPanelItem:
 				text: 'Books'
+				
+				BoxLayout:
+					orientation: 'vertical'
+					
+					BoxLayout:
+						orientation: 'horizontal'
+
+						Button:
+							text: 'add book'
 
 			TabbedPanelItem:
 				text: 'Users'
@@ -119,13 +134,32 @@
 				BoxLayout:
 					orientation: 'vertical'
 					BoxLayout:
-						pos_hint: {'top_y': 0}
 						size_hint: 1, 0.1
 						orientation: 'horizontal'
+
+						Label:
+							text: 'User ID:'
+							size_hint: 0.2, 1
+
+						TextInput:
+							multiline: False
+							on_text: root.username = self.text
+							size_hint: 0.4, 1
+							
+						Button:
+							text: 'Punish User'
+							on_press: root.punish_user()
+							size_hint: 0.2, 1
+
+						Button:
+							text: 'UnPunish User'
+							on_press: root.unpunish_user()
+							size_hint: 0.2, 1
+
 						Button:
 							text: 'refresh'
 							on_press: root.init_user_info()
-							size_hint: 0.2, 0.1
+							size_hint: 0.2, 1
 					Label:
 						text: 'id | Username | allowed to borrow'
 						size_hint: 1, 0.1

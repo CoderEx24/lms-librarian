@@ -35,6 +35,7 @@ class BorrowBook(Popup):
 class MainScreen(Screen):
     
     record_id = NumericProperty()
+    username = StringProperty()
 
     def refresh(self):
         token = App.get_running_app().token
@@ -88,3 +89,25 @@ class MainScreen(Screen):
 
         user_records.refresh_from_data()
             
+    def punish_user(self):
+        token = App.get_running_app().token
+        headers = {'Authorization': f'Token {token}'}
+        data = {'username': self.username}
+
+        res = requests.post('http://127.0.0.1:8000/api/librarian/punish_user/', \
+                headers=headers, data=data)
+
+        if res.status_code != 200:
+            pass
+    
+    def unpunish_user(self):
+        token = App.get_running_app().token
+        headers = {'Authorization': f'Token {token}'}
+        data = {'username': self.username}
+
+        res = requests.post('http://127.0.0.1:8000/api/librarian/unpunish_user/', \
+                headers=headers, data=data)
+
+        print(res)
+        if res.status_code != 200:
+            pass
